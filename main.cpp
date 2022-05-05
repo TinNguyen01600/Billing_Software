@@ -1,5 +1,6 @@
 #include "mylib.hh"
 
 int main(void){
-    loop();
+    Customer *customer = new Customer [LEN];
+    loop(customer, 0);
 }
