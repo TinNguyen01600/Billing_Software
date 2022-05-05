@@ -4,3 +4,4 @@
 using namespace std;
 
 int print_home_screen();
+void loop();
