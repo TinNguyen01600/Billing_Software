@@ -29,7 +29,16 @@ public:
         time_t now = time(0);
         char *date = ctime(& now);
         cout << "Date: " << date << endl;
-        cout << "Invoice Of: " << this->name;
+        cout << "Invoice Of: " << this->name << endl;
+        for(int i = 0; i<46; i++) cout << "-";
+        cout << endl << "Items\t\tQuantity\t\tTotal" << endl;
+        for(int i = 0; i<46; i++) cout << "-";
+        cout << endl;
+        for(int i = 0; i<this->item_indices; i++){
+            int total = this->item[i].quantity * this->item[i].unit_price;
+            cout << this->item[i].food << "\t\t" << this->item[i].quantity << "\t\t\t" << total << endl;
+        }
+        for(int i = 0; i<46; i++) cout << "-";
     };
     Customer *search(char *name_search){
         return(strcmp(name_search,this->name) == 0)?this : NULL;
