@@ -17,6 +17,7 @@ void loop(Customer *customer, int count){
     int choice = print_home_screen();
     switch(choice){
         case 1:
+            system("cls");
             char name[LEN]; int item_indices;
             cout << "Enter the customer's name: "; 
             cin.getline(name, LEN);
