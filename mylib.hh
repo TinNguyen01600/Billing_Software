@@ -4,6 +4,7 @@
 #include <string.h>
 #include <conio.h>
 #include <cstdio>
+#include <ctime>
 using namespace std;
 
 const int LEN = 50;
@@ -22,6 +23,14 @@ public:
         this->item_indices = item_indices;
         this->item = new Item [item_indices];
     };
+    void print_receipt(){
+        cout << endl << endl << "\t\t   My Restaurant"<< endl;
+        cout << "\t\t-------------------"<< endl;
+        time_t now = time(0);
+        char *date = ctime(& now);
+        cout << "Date: " << date << endl;
+        cout << "Invoice Of: " << this->name;
+    };
     Customer *search(char *name_search){
         return(strcmp(name_search,this->name) == 0)?this : NULL;
     };
@@ -31,4 +40,3 @@ public:
 
 int print_home_screen();
 void loop(Customer *customer, int count);
-void print_receipt(Customer *customer);

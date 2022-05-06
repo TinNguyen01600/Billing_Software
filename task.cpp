@@ -13,10 +13,6 @@ int print_home_screen(){
     return choice;
 }
 
-void print_receipt(Customer *customer){
-    
-}
-
 void loop(Customer *customer, int count){
     int choice = print_home_screen();
     switch(choice){
@@ -38,6 +34,7 @@ void loop(Customer *customer, int count){
                 cout << "Enter the quantity:\t";
                 cin >> customer[count].item[i].quantity;
             }
+            customer[count].print_receipt();
             count++;
             break;
         case 2:
