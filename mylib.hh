@@ -16,18 +16,11 @@ public:
         string food;
         int unit_price, quantity;
     };
+    Item *item;
     void set_data(char *name, int item_indices){
         strcpy(this->name, name);
         this->item_indices = item_indices;
-        Item *item = new Item[item_indices];
-        for(int i = 0; i<item_indices; i++){
-            cout << endl << "Enter item " << i+1 << ":\t\t";
-            getline(cin, item[i].food);
-            cout << "Enter the unit price:\t";
-            cin >> item[i].unit_price;
-            cout << "Enter the quantity:\t";
-            cin >> item[i].quantity;
-        }
+        this->item = new Item [item_indices];
     };
     Customer *search(char *name_search){
         return(strcmp(name_search,this->name) == 0)?this : NULL;
@@ -38,3 +31,4 @@ public:
 
 int print_home_screen();
 void loop(Customer *customer, int count);
+void print_receipt(Customer *customer);

@@ -13,6 +13,10 @@ int print_home_screen(){
     return choice;
 }
 
+void print_receipt(Customer *customer){
+    
+}
+
 void loop(Customer *customer, int count){
     int choice = print_home_screen();
     switch(choice){
@@ -24,7 +28,16 @@ void loop(Customer *customer, int count){
             cin.getline(name, LEN);
             cout << endl << "Enter number of items: ";
             cin >> item_indices;
-            customer[count].set_data(name, item_indices);
+            customer[count].set_data(name, item_indices);           
+            for(int i = 0; i<item_indices; i++){
+                cout << endl << "Enter item " << i+1 << ":\t\t";
+                getline(cin, customer[count].item[i].food);
+                getline(cin, customer[count].item[i].food);
+                cout << "Enter the unit price:\t";
+                cin >> customer[count].item[i].unit_price;
+                cout << "Enter the quantity:\t";
+                cin >> customer[count].item[i].quantity;
+            }
             count++;
             break;
         case 2:
