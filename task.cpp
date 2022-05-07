@@ -44,7 +44,7 @@ void loop(Customer *customer, int count){
                 cout << "Apply 10% discount? [y/n]: ";cin >> ch;
             }
             float discount;
-            if(int(ch)!=121)    discount = 0.1;
+            if(ch == 'y')    discount = 0.1;
             else    discount = 0;
             customer[count].print_receipt(discount);
             count++;

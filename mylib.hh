@@ -27,21 +27,34 @@ public:
         this->item = new Item [item_indices];
     };
     void print_receipt(float discount){
-        cout << endl << endl << "\t\t   TN Restaurant"<< endl;
-        cout << "\t\t-------------------"<< endl;
+        cout << endl << endl << "\t\t    TN Restaurant"<< endl;
+        cout << "\t\t -------------------"<< endl;
         time_t now = time(0);
         char *date = ctime(& now);
-        cout << "Date: " << date << endl;
+        cout << "Date: " << date;
         cout << "Invoice Of: " << this->name << endl;
-        for(int i = 0; i<46; i++) cout << "-";
-        cout << endl << "Items\t\tQuantity\t\tTotal" << endl;
-        for(int i = 0; i<46; i++) cout << "-";
+
+        for(int i = 0; i<56; i++) cout << "-";
+        cout << endl << "Items\t\tQuantity\tTotal\t\tALV Tax" << endl;
+        for(int i = 0; i<56; i++) cout << "-";
         cout << endl;
+        int sub_total = 0; float alv_total = 0;
         for(int i = 0; i<this->item_indices; i++){
             int total = this->item[i].quantity * this->item[i].unit_price;
-            cout << this->item[i].food << "\t\t" << this->item[i].quantity << "\t\t\t" << total << endl;
+            sub_total += total;
+            float alv = total * 0.14;     //Food tax in Finland is 14%
+            alv_total += alv;
+            cout.width(17);
+            cout << left << this->item[i].food << left << this->item[i].quantity << "\t\t " << total << "\t\t " << alv << endl;
         }
-        for(int i = 0; i<46; i++) cout << "-";
+        for(int i = 0; i<56; i++) cout << "-";
+        cout << endl << endl << "Sub Total \t" << sub_total << endl;
+        cout << "Discount\t" << discount*sub_total << endl;
+        cout << "AlV Food Tax\t" << alv_total << endl;
+        for(int i = 0; i<56; i++) cout << "-"; cout << endl;
+        cout.width(50);
+        cout << left << "Grand Total" << left << sub_total*(1-discount) + alv_total << endl;
+        for(int i = 0; i<56; i++) cout << "-"; cout << endl;
     };
     Customer *search(char *name_search){
         return(strcmp(name_search,this->name) == 0)?this : NULL;
