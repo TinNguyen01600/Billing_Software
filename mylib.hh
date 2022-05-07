@@ -5,6 +5,9 @@
 #include <conio.h>
 #include <cstdio>
 #include <ctime>
+#include <stdio.h>
+#include <Windows.h>
+#include <cstdlib>
 using namespace std;
 
 const int LEN = 50;
@@ -23,8 +26,8 @@ public:
         this->item_indices = item_indices;
         this->item = new Item [item_indices];
     };
-    void print_receipt(){
-        cout << endl << endl << "\t\t   My Restaurant"<< endl;
+    void print_receipt(float discount){
+        cout << endl << endl << "\t\t   TN Restaurant"<< endl;
         cout << "\t\t-------------------"<< endl;
         time_t now = time(0);
         char *date = ctime(& now);
@@ -47,5 +50,5 @@ public:
 
 //------------------------------------------------------------------------
 
-int print_home_screen();
+void print_home_screen();
 void loop(Customer *customer, int count);
