@@ -1,20 +1,23 @@
 #include "mylib.hh"
 
-int print_home_screen(){
+void print_home_screen(){
     system("cls");
-    cout << endl << "============ Restaurant ============" << endl << endl;
-    
+    cout << endl << "============ Restaurant ============" << endl << endl;   
     cout << "1. Create new invoice" << endl;
     cout << "2. Show all invoices" << endl;
     cout << "3. Search" << endl;
     cout << "4. Exit" << endl << endl;
-    cout << "Select an operation: ";
-    int choice; cin >> choice;
-    return choice;
 }
 
 void loop(Customer *customer, int count){
-    int choice = print_home_screen();
+    print_home_screen();
+    cout << "Select an operation: ";
+    char ch; cin >> ch;
+    while(int(ch) < 49 || int(ch)>52){
+        cout << "Invalid input!!! Please try again." << endl;
+        cout << "Select an operation: ";cin >> ch;
+    }
+    int choice = int(ch) - 48;
     switch(choice){
         case 1:
             system("cls");
@@ -34,7 +37,16 @@ void loop(Customer *customer, int count){
                 cout << "Enter the quantity:\t";
                 cin >> customer[count].item[i].quantity;
             }
-            customer[count].print_receipt();
+
+            cout << endl << "Apply 10% discount? [y/n]: "; cin >> ch;
+            while(int(ch)!=121 && int(ch)!=110){
+                cout << "Invalid input!!! Please try again." << endl;
+                cout << "Apply 10% discount? [y/n]: ";cin >> ch;
+            }
+            float discount;
+            if(int(ch)!=121)    discount = 0.1;
+            else    discount = 0;
+            customer[count].print_receipt(discount);
             count++;
             break;
         case 2:
