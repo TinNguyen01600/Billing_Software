@@ -47,6 +47,7 @@ void loop(Customer *customer, int count){
             if(ch == 'y')    discount = 0.1;
             else    discount = 0;
             customer[count].print_receipt(discount);
+            
             count++;
             break;
         case 2:
