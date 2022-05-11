@@ -65,3 +65,4 @@ public:
 
 void print_home_screen();
 void loop(Customer *customer, int count);
+int check_continue();
