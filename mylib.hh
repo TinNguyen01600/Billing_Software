@@ -69,6 +69,13 @@ public:
         time_t now = time(0); char *date = ctime(& now);
         myfile << "Date: " << date;
         myfile << "Name: " << this -> name << endl;
+        for(int i = 0; i<this->item_indices; i++){
+            myfile << "  •" << this->item[i].food << " ---- ";
+            myfile << this->item[i].quantity << " x " << this->item[i].unit_price << endl;
+        }
+        myfile << "Tax: " << this->tax << endl;
+        myfile << "Discount: " << this->discount << endl;
+        myfile << "Grand Total: " << this->grand_total << endl << endl;
         myfile.close();
     }
 

@@ -19,7 +19,7 @@ int check_continue(){
     if(ch == 'y')   return 1;
     else{
         cout << "\t\t\tGood Bye =))" << endl << endl; 
-        remove("invoice.txt");
+        //remove("invoice.txt");
         exit(0);
         return 0;
     }
@@ -76,7 +76,7 @@ void loop(Customer *customer, int count){
             delete k;
             cout << endl << endl;
             customer[count].print_receipt();
-            //customer[count].write_file();
+            customer[count].write_file();
             
             if(check_continue()) count++; loop(customer, count);
             break;
@@ -92,7 +92,7 @@ void loop(Customer *customer, int count){
             break;
         case 4:
             cout << "\t\t\tGood Bye =))" << endl << endl;
-            remove("invoice.txt"); 
+            //remove("invoice.txt"); 
             exit(0);
             break;
     }
