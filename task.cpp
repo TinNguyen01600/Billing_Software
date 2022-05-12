@@ -19,6 +19,7 @@ int check_continue(){
     if(ch == 'y')   return 1;
     else{
         cout << "\t\t\tGood Bye =))" << endl << endl; 
+        remove("invoice.txt");
         exit(0);
         return 0;
     }
@@ -58,10 +59,11 @@ void loop(Customer *customer, int count){
                 cout << "Invalid input!!! Please try again." << endl;
                 cout << "Apply 10% discount? [y/n]: ";cin >> ch;
             }
-
             if(ch == 'y')    customer[count].discount = 0.1;
             else    customer[count].discount = 0;
+            cout << endl << endl;
             customer[count].print_receipt();
+            customer[count].write_file();
             
             if(check_continue()) count++; loop(customer, count);
             break;
@@ -69,13 +71,14 @@ void loop(Customer *customer, int count){
             system("cls");
             for(int i = 0; i<count; i++){
                 customer[i].print_receipt();
-                cout << endl;
+                cout << endl << endl;
             }
             break;
         case 3:
             break;
         case 4:
-            cout << "\t\t\tGood Bye =))" << endl << endl; 
+            cout << "\t\t\tGood Bye =))" << endl << endl;
+            remove("invoice.txt"); 
             exit(0);
             break;
     }

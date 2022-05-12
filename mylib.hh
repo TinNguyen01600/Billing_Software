@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <Windows.h>
 #include <cstdlib>
+#include <fstream>
 using namespace std;
 
 const int LEN = 50;
@@ -22,13 +23,15 @@ public:
     };
     float discount;
     Item *item;
+    
     void set_data(char *name, int item_indices){
         strcpy(this->name, name);
         this->item_indices = item_indices;
         this->item = new Item [item_indices];
     };
+    
     void print_receipt(){
-        cout << endl << endl << "\t\t    TN Restaurant"<< endl;
+        cout << "\t\t    TN Restaurant"<< endl;
         cout << "\t\t -------------------"<< endl;
         time_t now = time(0);
         char *date = ctime(& now);
@@ -57,6 +60,14 @@ public:
         cout << left << "Grand Total" << left << sub_total*(1-this->discount) + alv_total << endl;
         for(int i = 0; i<56; i++) cout << "-"; cout << endl;
     };
+    
+    void write_file(){
+        ofstream myfile;
+        myfile.open ("invoice.txt", ios_base::app);
+        myfile << this -> name;
+        myfile.close();
+    }
+
     Customer *search(char *name_search){
         return(strcmp(name_search,this->name) == 0)?this : NULL;
     };
