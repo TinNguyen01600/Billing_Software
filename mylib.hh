@@ -13,21 +13,26 @@ using namespace std;
 
 const int LEN = 50;
 
+struct Item{
+    string food;
+    int unit_price, quantity;
+    float tax;
+};
+
 class Customer{
     char name[LEN];
     int item_indices;
+    float tax, discount, grand_total;
 public:
-    struct Item{
-        string food;
-        int unit_price, quantity;
-    };
-    float discount;
     Item *item;
     
-    void set_data(char *name, int item_indices){
+    void set_data(char *name, int item_indices, Item *item, float tax, float discount, float grand_total){
         strcpy(this->name, name);
         this->item_indices = item_indices;
-        this->item = new Item [item_indices];
+        this->item = item;
+        this->tax = tax;
+        this->discount = discount;
+        this->grand_total = grand_total;
     };
     
     void print_receipt(){
@@ -40,31 +45,30 @@ public:
 
         for(int i = 0; i<56; i++) cout << "-";
         cout << endl << "Items\t\tQuantity\tTotal\t\tALV Tax" << endl;
-        for(int i = 0; i<56; i++) cout << "-";
-        cout << endl;
-        int sub_total = 0; float alv_total = 0;
+        for(int i = 0; i<56; i++) cout << "-"; cout << endl;
+        int sub_total = 0;
         for(int i = 0; i<this->item_indices; i++){
             int total = this->item[i].quantity * this->item[i].unit_price;
             sub_total += total;
-            float alv = total * 0.14;     //Food tax in Finland is 14%
-            alv_total += alv;
             cout.width(17);
-            cout << left << this->item[i].food << left << this->item[i].quantity << "\t\t " << total << "\t\t " << alv << endl;
+            cout << left << this->item[i].food << left << this->item[i].quantity << "\t\t " << total << "\t\t " << this->item[i].tax << endl;
         }
         for(int i = 0; i<56; i++) cout << "-";
         cout << endl << endl << "Sub Total \t" << sub_total << endl;
-        cout << "Discount\t" << this->discount*sub_total << endl;
-        cout << "AlV Food Tax\t" << alv_total << endl;
+        cout << "Discount\t" << this->discount << endl;
+        cout << "AlV Food Tax\t" << this->tax << endl;
         for(int i = 0; i<56; i++) cout << "-"; cout << endl;
         cout.width(50);
-        cout << left << "Grand Total" << left << sub_total*(1-this->discount) + alv_total << endl;
+        cout << left << "Grand Total" << left << this->grand_total << endl;
         for(int i = 0; i<56; i++) cout << "-"; cout << endl;
     };
     
     void write_file(){
         ofstream myfile;
         myfile.open ("invoice.txt", ios_base::app);
-        myfile << this -> name;
+        time_t now = time(0); char *date = ctime(& now);
+        myfile << "Date: " << date;
+        myfile << "Name: " << this -> name << endl;
         myfile.close();
     }
 

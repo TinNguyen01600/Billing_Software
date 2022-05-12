@@ -35,23 +35,31 @@ void loop(Customer *customer, int count){
     }
     int choice = int(ch) - 48;
     switch(choice){
-        case 1:
+        case 1:{
             system("cls");
             char name[LEN]; int item_indices;
+            int sub_total = 0;
+            float tax = 0, discount, grand_total;
+
             cout << "Enter the customer's name: "; 
             cin.getline(name, LEN);
             cin.getline(name, LEN);
             cout << endl << "Enter number of items: ";
             cin >> item_indices;
-            customer[count].set_data(name, item_indices);           
+            Item *k; k = new Item[item_indices];
+
             for(int i = 0; i<item_indices; i++){
                 cout << endl << "Enter item " << i+1 << ":\t\t";
-                getline(cin, customer[count].item[i].food);
-                getline(cin, customer[count].item[i].food);
+                getline(cin, k[i].food);
+                getline(cin, k[i].food);
                 cout << "Enter the unit price:\t";
-                cin >> customer[count].item[i].unit_price;
+                cin >> k[i].unit_price;
                 cout << "Enter the quantity:\t";
-                cin >> customer[count].item[i].quantity;
+                cin >> k[i].quantity;
+
+                sub_total += k[i].unit_price * k[i].quantity;
+                k[i].tax = (float)k[i].unit_price * (float)k[i].quantity * 0.14;
+                tax += k[i].tax;
             }
 
             cout << endl << "Apply 10% discount? [y/n]: "; cin >> ch;
@@ -59,14 +67,20 @@ void loop(Customer *customer, int count){
                 cout << "Invalid input!!! Please try again." << endl;
                 cout << "Apply 10% discount? [y/n]: ";cin >> ch;
             }
-            if(ch == 'y')    customer[count].discount = 0.1;
-            else    customer[count].discount = 0;
+            if(ch == 'y')    discount = 0.1;
+            else    discount = 0;
+            discount = sub_total*discount;
+            grand_total = sub_total - discount + tax;
+
+            customer[count].set_data(name, item_indices, k, tax, discount, grand_total);
+            delete k;
             cout << endl << endl;
             customer[count].print_receipt();
-            customer[count].write_file();
+            //customer[count].write_file();
             
             if(check_continue()) count++; loop(customer, count);
             break;
+        }
         case 2:
             system("cls");
             for(int i = 0; i<count; i++){
