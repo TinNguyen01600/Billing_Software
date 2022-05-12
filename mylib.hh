@@ -20,13 +20,14 @@ public:
         string food;
         int unit_price, quantity;
     };
+    float discount;
     Item *item;
     void set_data(char *name, int item_indices){
         strcpy(this->name, name);
         this->item_indices = item_indices;
         this->item = new Item [item_indices];
     };
-    void print_receipt(float discount){
+    void print_receipt(){
         cout << endl << endl << "\t\t    TN Restaurant"<< endl;
         cout << "\t\t -------------------"<< endl;
         time_t now = time(0);
@@ -49,11 +50,11 @@ public:
         }
         for(int i = 0; i<56; i++) cout << "-";
         cout << endl << endl << "Sub Total \t" << sub_total << endl;
-        cout << "Discount\t" << discount*sub_total << endl;
+        cout << "Discount\t" << this->discount*sub_total << endl;
         cout << "AlV Food Tax\t" << alv_total << endl;
         for(int i = 0; i<56; i++) cout << "-"; cout << endl;
         cout.width(50);
-        cout << left << "Grand Total" << left << sub_total*(1-discount) + alv_total << endl;
+        cout << left << "Grand Total" << left << sub_total*(1-this->discount) + alv_total << endl;
         for(int i = 0; i<56; i++) cout << "-"; cout << endl;
     };
     Customer *search(char *name_search){

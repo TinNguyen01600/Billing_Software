@@ -58,17 +58,17 @@ void loop(Customer *customer, int count){
                 cout << "Invalid input!!! Please try again." << endl;
                 cout << "Apply 10% discount? [y/n]: ";cin >> ch;
             }
-            float discount;
-            if(ch == 'y')    discount = 0.1;
-            else    discount = 0;
-            customer[count].print_receipt(discount);
+
+            if(ch == 'y')    customer[count].discount = 0.1;
+            else    customer[count].discount = 0;
+            customer[count].print_receipt();
             
-            if(check_continue) loop(customer, count);count++;
+            if(check_continue()) count++; loop(customer, count);
             break;
         case 2:
             system("cls");
             for(int i = 0; i<count; i++){
-                customer[i].print_receipt(discount);
+                customer[i].print_receipt();
                 cout << endl;
             }
             break;
