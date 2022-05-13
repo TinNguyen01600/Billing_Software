@@ -11,7 +11,7 @@ void print_home_screen(){
 
 int check_continue(){
     char ch;
-    cout << endl << "Do you want to continue? [y/n]: "; cin >> ch;
+    cout << endl << endl << "Do you want to continue? [y/n]: "; cin >> ch;
     while(int(ch)!=121 && int(ch)!=110){
         cout << "Invalid input!!! Please try again." << endl;
         cout << "Do you want to continue? [y/n]: ";cin >> ch;
@@ -19,7 +19,6 @@ int check_continue(){
     if(ch == 'y')   return 1;
     else{
         cout << "\t\t\tGood Bye =))" << endl << endl; 
-        //remove("invoice.txt");
         exit(0);
         return 0;
     }
@@ -76,7 +75,16 @@ void loop(Customer *customer, int count){
             delete k;
             cout << endl << endl;
             customer[count].print_receipt();
-            customer[count].write_file();
+
+            cout << endl << "Do you want to save this bill in file? [y/n]: "; cin >> ch;
+            while(int(ch)!=121 && int(ch)!=110){
+                cout << "Invalid input!!! Please try again." << endl;
+                cout << "Do you want to save this bill in file? [y/n]: ";cin >> ch;
+            }
+            if(ch == 'y'){
+                customer[count].write_file();
+                cout << "Receipt saved in file 'invoice.txt'.";
+            }    
             
             if(check_continue()) count++; loop(customer, count);
             break;
@@ -92,7 +100,6 @@ void loop(Customer *customer, int count){
             break;
         case 4:
             cout << "\t\t\tGood Bye =))" << endl << endl;
-            //remove("invoice.txt"); 
             exit(0);
             break;
     }
