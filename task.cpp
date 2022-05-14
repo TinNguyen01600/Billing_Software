@@ -95,10 +95,40 @@ void loop(Customer *customer, int count){
                 customer[i].print_receipt();
                 cout << endl << endl;
             }
+            if(check_continue()) loop(customer, count);
             break;
-        case 3:
+        case 3:{
+            system("cls");
+            if(count == 0){
+                cout << "No customer in database. Cannot search" << endl;
+            }
+            else{
+                char customer_name_search[LEN];
+			    Customer *temp; int temp_count = 0;
+			    cout << "Enter customer name to be searched: "; 
+                cin.getline(customer_name_search, LEN);
+                cin.getline(customer_name_search, LEN);
+			// do {
+      		// 	if (temp_count == count){
+            //         cout << "No customer found" << endl;
+            //     }
+            //     temp = customer[temp_count].search(customer_name_search);
+      		// 	temp_count++;
+    		// }
+    		// while (temp == NULL);
+
+                while(temp == NULL && temp_count < count){
+                    temp = customer[temp_count].search(customer_name_search);
+      			    temp_count++;
+                }
+                if(temp_count == count) cout << "No customer found" << endl;
+                else    temp->print_receipt();
+            }
+            if(check_continue()) loop(customer, count);
             break;
+        }
         case 4:
+            delete customer;
             cout << "\t\t\tGood Bye =))" << endl << endl;
             exit(0);
             break;
