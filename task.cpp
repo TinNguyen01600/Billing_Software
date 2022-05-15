@@ -108,21 +108,26 @@ void loop(Customer *customer, int count){
 			    cout << "Enter customer name to be searched: "; 
                 cin.getline(customer_name_search, LEN);
                 cin.getline(customer_name_search, LEN);
-			// do {
-      		// 	if (temp_count == count){
-            //         cout << "No customer found" << endl;
-            //     }
-            //     temp = customer[temp_count].search(customer_name_search);
-      		// 	temp_count++;
-    		// }
-    		// while (temp == NULL);
+			    // do {
+      			//     if (temp_count == count){
+                //         cout << "No customer found" << endl;
+                //         goto label;
+                //     }
+                //     temp = customer[temp_count].search(customer_name_search);
+      			//     temp_count++;
+    		    // }
+    		    // while (temp == NULL);
+                // temp->print_receipt();
 
-                while(temp == NULL && temp_count < count){
-                    temp = customer[temp_count].search(customer_name_search);
-      			    temp_count++;
+                for (int i = 0; i<count; i++){
+                    temp = customer[i].search(customer_name_search);
+                    if(temp != NULL){
+                        temp->print_receipt();
+                        cout << endl;
+                        temp_count++;
+                    }
                 }
-                if(temp_count == count) cout << "No customer found" << endl;
-                else    temp->print_receipt();
+                if(temp_count == 0) cout << "No customer found" << endl;
             }
             if(check_continue()) loop(customer, count);
             break;
